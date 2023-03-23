@@ -20,7 +20,18 @@ module.exports = (props) => {
         }
     );
 
-    return common(props).default.map((config) =>
+    // This causes a segfault
+    const makeLargeConfig = () => {
+      const config = [];
+
+      for (let i = 0; i < 150; i++) {
+        config.push(...common(props).default);
+      }
+
+      return config;
+    };
+
+    return makeLargeConfig().map((config) =>
         merge(config, {
             /* eslint-disable-next-line no-restricted-syntax */
             mode: 'development',
