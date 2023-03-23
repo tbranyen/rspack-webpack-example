@@ -1,5 +1,4 @@
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const { merge } = require('webpack-merge');
 const common = require('./common');
 
@@ -26,12 +25,6 @@ module.exports = (props) =>
             },
             optimization: {
                 ...config.optimization,
-                minimizer: [
-                    new TerserPlugin({
-                        minify: TerserPlugin.swcMinify,
-                    }),
-                    new CssMinimizerPlugin(),
-                ],
                 minimize: true,
             },
         })

@@ -10,7 +10,7 @@ module.exports = {
   'paths': {
     'srcRoot': path.resolve('./apps/website/src'),
     'srcCss': './apps/website/src/css',
-    'srcJs': './apps/website/dist',
+    'srcJs': './apps/website/src/js',
     'generatedRoot': path.resolve('./apps/website/dist'),
   },
   'webpack.enabled.packages': [],
@@ -19,7 +19,7 @@ module.exports = {
       entryPoints: [
         [
           // js
-          ['index.js'],
+          ['index.jsx'],
           // less/css
           ['index.less'],
         ],

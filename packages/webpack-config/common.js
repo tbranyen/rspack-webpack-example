@@ -91,34 +91,25 @@ module.exports = (props) => {
             stats: {
                 errorDetails: true,
             },
-            optimization: {
-                splitChunks: {
-                    chunks: 'async',
-                    cacheGroups: {
-                        defaultVendors: {
-                            // By default webpack splits node modules loaded
-                            // dynamically. We do not want this behavior as it
-                            // induces a separate http request and slows down mdx
-                            // loading. Setting test to '' disables this chunk from
-                            // occuring.
-                            test: '',
-                        },
-                    },
-                },
-            },
-            experiments: {
-                backCompat: false,
-            },
             resolve: {
                 mainFields: ['browser', 'main', 'module'],
-                symlinks: false,
             },
             module: {
                 rules: [
                     {
+                      test: /\.m?js$/,
+                      exclude: /node_modules/,
+                      use: {
+                        loader: 'babel-loader',
+                        options: {
+                          "presets": ["@babel/preset-react"]
+                        }
+                      }
+                    },
+                    {
                         test: /(\.less)$/i,
                         exclude: /node_modules/,
-                        type: 'asset/resource',
+                        type: 'css',
                         use: [
                             // Once we have a single CSS file, run the autoprefixer
                             // plugin on the entire bundle.
@@ -174,9 +165,7 @@ module.exports = (props) => {
                     new WebpackBundleAnalyzer({
                         analyzerMode: 'static',
                     }),
-                new webpack.DefinePlugin({
-                    'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-                }),
+                // Should work with rspack pending some changes
                 //new WebpackManifestPlugin({
                 //    fileName: path.join(
                 //        path.resolve(generatedRoot, 'webpack'),

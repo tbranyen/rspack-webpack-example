@@ -43,16 +43,6 @@ module.exports = (props) => {
                 publicPath: props.get('paths').publicPath,
             },
 
-            snapshot: {
-                managedPaths: [
-                    new RegExp(
-                        `^(.+?[\\/]node_modules[\\/])(?!${enabledPackages.join(
-                            '|'
-                        )})`
-                    ),
-                ],
-            },
-
             ...(isWebpackDevServer
                 ? {
                       // note: eval-source-maps works in conjunction with the already generated
